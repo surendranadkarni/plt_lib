@@ -1,6 +1,6 @@
 /*
-    plt_lib.h
-    platform library header
+    plt_spi_pvt.h
+    platform library spi private header
     Copyright (C) <2013> Surendra Nadkarni <suren.nadkarni@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
@@ -26,33 +26,29 @@ IN THE SOFTWARE.
 
 /*@{*/
 
-#ifndef ___PLT__LIB__H___
-#define ___PLT__LIB__H___
+#ifndef ___PLT__SPI__PVT__H___
+#define ___PLT__SPI__PVT__H___
 
-#include <datatypes.h>
-#include <assert.h>
+#include <plt_spi.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <getopt.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <linux/types.h>
+#include <linux/spi/spidev.h>
 
-#ifdef __cplusplus
-extern "C" {
+typedef struct __tag_spi_context
+{
+    int fd;
+    plt_spi_config cfg;
+}spi_context;
+
 #endif
-
-int plt_lib_init();
-
-int plt_lib_term();
-
-int plt_lib_get_plt_capability();
-
-int plt_lib_get_system_time();
-
-
-#define plt_assert(condn) assert(condn)
-
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif 
+ 
 /*@}*/
 
 //  Local Variables:

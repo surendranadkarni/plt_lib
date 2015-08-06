@@ -9,4 +9,4 @@ test: test.o
 	cp test.o ../lib/
 
 clean:
-	rm *.o
+	rm -f  *.o

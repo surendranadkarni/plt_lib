@@ -1,4 +1,3 @@
-CC=gcc
 
 LDFLAGS= -L./src/linux -lplt
 
@@ -15,5 +14,5 @@ clean:
 
 
 all: test plt_lib
-	gcc -o test_plt lib/test.o $(LDFLAGS)
+	$(CC) -o test_plt lib/test.o $(LDFLAGS)
 	mv test_plt ./lib/

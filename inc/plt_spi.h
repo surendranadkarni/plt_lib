@@ -32,7 +32,7 @@ IN THE SOFTWARE.
 
 #include <datatypes.h>
 
-
+#include <plt_lib.h>
 
 /*SPI MODE based on SPI_CPHA and SPI_CPOL
 
@@ -80,6 +80,7 @@ typedef struct _tag_plt_spi_config_
 {
     uint32      clock;
     uint08      bits_per_word;
+    uint32      delay;
     uint08      mode;
     bool        lsb_first;
     bool        cs_exists;
