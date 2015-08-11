@@ -68,7 +68,7 @@ Mode    CPOL    CPHA
 
 #define MAP_PLT_HND_TO_SPI_CONTEXT(hnd) ((spi_context*) hnd)
 
-#define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev0.0":NULL)
+#define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev6.0":NULL)
 
 plt_handle plt_spi_new_device(int dev_id)
 {
@@ -99,8 +99,9 @@ static int configure_mode(int fd, const plt_spi_config *cfg)
 {
     int ret = 0;
     
-    uint32 spi_mode = 0;
+    uint08 spi_mode = 0;
     
+/*
     if(cfg->lsb_first == true)
     {
         spi_mode |= SPI_LSB_FIRST;
@@ -109,7 +110,7 @@ static int configure_mode(int fd, const plt_spi_config *cfg)
     {
         spi_mode &= (~SPI_LSB_FIRST);
     }
-
+*/
     if(cfg->cs_exists == false)
     {
         spi_mode |= SPI_NO_CS;
@@ -152,7 +153,7 @@ static int configure_mode(int fd, const plt_spi_config *cfg)
 
     }
   
-  
+   /* spi_mode =  SPI_CPOL | SPI_CPHA | SPI_CS_HIGH ;  */
     ret = ioctl(fd, SPI_IOC_WR_MODE, &spi_mode);
     assert (ret == 0);
     
@@ -164,13 +165,15 @@ plt_status plt_spi_configure(plt_handle hnd, const plt_spi_config *cfg)
     int ret = 0;
     spi_context *context = MAP_PLT_HND_TO_SPI_CONTEXT(hnd);
     plt_assert(context != NULL);
+    uint08 bits = cfg->bits_per_word;
+    
     
     configure_mode(context->fd, cfg);
     
-    ret = ioctl(context->fd, SPI_IOC_WR_BITS_PER_WORD, cfg->bits_per_word);
+    ret = ioctl(context->fd, SPI_IOC_WR_BITS_PER_WORD, &bits);
     plt_assert (ret == 0);
     
-    ret = ioctl(context->fd, SPI_IOC_WR_MAX_SPEED_HZ, cfg->clock);
+    ret = ioctl(context->fd, SPI_IOC_WR_MAX_SPEED_HZ, &cfg->clock);
     plt_assert (ret == 0);
     
     context->cfg = *cfg;
