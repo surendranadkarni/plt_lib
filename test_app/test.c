@@ -48,7 +48,7 @@ int main()
     plt_spi_configure(spi_hnd, &cfg);
     
  // plt_spi_transfer(spi_hnd, tx_buf, rx_buf, 2);
-    readHomeId(NULL);
+    readdata(NULL);
     
     plt_lib_term();
     return 0;

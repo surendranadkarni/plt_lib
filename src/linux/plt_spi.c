@@ -68,7 +68,7 @@ Mode    CPOL    CPHA
 
 #define MAP_PLT_HND_TO_SPI_CONTEXT(hnd) ((spi_context*) hnd)
 
-#define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev6.0":NULL)
+#define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev0.0":NULL)
 
 plt_handle plt_spi_new_device(int dev_id)
 {
