@@ -13,6 +13,6 @@ clean:
 	rm lib/*
 
 
-all: test plt_lib
-	$(CC) -o test_plt lib/test.o $(LDFLAGS)
-	mv test_plt ./lib/
+spi_test: test plt_lib
+	$(CC) -o test_spi lib/test_spi.o $(LDFLAGS)
+	mv test_spi ./lib/
