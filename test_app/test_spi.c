@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <plt_lib.h>
 #include <plt_spi.h>
-
+#include <plt_cfg.h>
 
 plt_spi_config cfg = 
 {

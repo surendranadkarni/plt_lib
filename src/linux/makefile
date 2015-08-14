@@ -1,4 +1,4 @@
-CFLAGS=-I../../inc -g -Wall
+CFLAGS=-I../../inc -I../../cfg -g -Wall 
 
 
 %.o: %.c 

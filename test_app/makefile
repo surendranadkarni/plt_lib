@@ -1,5 +1,5 @@
 
-CFLAGS=-I./../inc/
+CFLAGS=-I./../inc/ -I../cfg/ -Wall
 
 
 %.o: %.c 

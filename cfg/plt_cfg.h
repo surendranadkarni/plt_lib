@@ -33,6 +33,18 @@ IN THE SOFTWARE.
 
 #define PLT_CFG_SPI_HOST_ID_0 (0x00)
 
+#define PLT_CFG_MODULE_ENABLED              (0x01)
+#define PLT_CFG_MODULE_DISABLED             (0x00)
+
+/*Enable Indivisual Module*/
+#define PLT_CFG_LOGGER_MODULE               PLT_CFG_MODULE_ENABLED
+#define PLT_CFG_I2C_MODULE                  PLT_CFG_MODULE_ENABLED
+#define PLT_CFG_SPI_MODULE                  PLT_CFG_MODULE_ENABLED
+#define PLT_CFG_SYSTEM_TIMER_MODULE         PLT_CFG_MODULE_ENABLED
+
+
+
+
 #endif
  
 /*@}*/

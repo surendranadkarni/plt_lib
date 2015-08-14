@@ -58,12 +58,8 @@ Mode    CPOL    CPHA
 */
 
 
-/*
-    dev = cfg_get_spi_device(id)
-    fd = open device file
-    
-    
-*/
+#if (PLT_CFG_SPI_MODULE == PLT_CFG_MODULE_ENABLED )
+//{
 
 #define MAP_SPI_CONTEXT_TO_PLT_HND(context) ((plt_handle) context)
 
@@ -214,7 +210,7 @@ plt_status plt_spi_delete_device(plt_handle hnd)
     return 0;
 }
 
-
+#endif//}PLT_CFG_MODULE_ENABLED
  
 /*@}*/
 
