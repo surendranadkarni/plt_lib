@@ -27,6 +27,7 @@ IN THE SOFTWARE.
 /*@{*/
 
 #include "plt_spi_pvt.h"
+#include "plt_cfg_pvt.h"
 #include <stdio.h>
 
 /*SPI MODE based on SPI_CPHA and SPI_CPOL
@@ -68,7 +69,6 @@ Mode    CPOL    CPHA
 
 #define MAP_PLT_HND_TO_SPI_CONTEXT(hnd) ((spi_context*) hnd)
 
-#define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev0.0":NULL)
 
 plt_handle plt_spi_new_device(int dev_id)
 {
