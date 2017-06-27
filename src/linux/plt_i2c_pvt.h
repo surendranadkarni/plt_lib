@@ -40,25 +40,11 @@ IN THE SOFTWARE.
 #include <fcntl.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <plt_i2c.h>
+typedef struct __tag_i2c_context
+{
+        int fd;
+}i2c_context;
 
-
-typedef unsigned long   uint32;
-typedef unsigned short  uint16;
-typedef unsigned char   uint08;
-typedef void*           plt_handle;
-typedef int             plt_status;
-typedef unsigned char   bool;
-
-
-#define false   (0)
-#define true    (!false)
-#define plt_assert(condn) assert(condn)
-
-int i2c_init(void);
-int i2c_term(void);
-int i2c_write(UCHAR dev, UCHAR reg, UCHAR* data, int len);
-int i2c_read(UCHAR dev, UCHAR reg, UCHAR* data, int len);
-int i2c_read16(UCHAR dev, UINT16 reg, UCHAR* data, UINT16 len);
-int i2c_write16(UCHAR dev, UINT16 reg, UCHAR* data, UINT16 len);
 
 #endif

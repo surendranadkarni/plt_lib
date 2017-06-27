@@ -29,38 +29,14 @@ IN THE SOFTWARE.
 #ifndef ___PLT__I2C__PVT__H___
 #define ___PLT__I2C__PVT__H___
 
+#include <datatypes.h>
+#include <plt_lib.h>
 
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <linux/i2c-dev.h>
-#include <linux/i2c.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <pthread.h>
-
-
-typedef unsigned long   uint32;
-typedef unsigned short  uint16;
-typedef unsigned short  UINT16; 
-typedef unsigned char   uint08;
-typedef unsigned char 	UCHAR;
-typedef void*           plt_handle;
-typedef int             plt_status;
-typedef unsigned char   bool;
-
-
-#define false   (0)
-#define true    (!false)
-#define plt_assert(condn) assert(condn)
-
-int i2c_init(int dev_id);
-int i2c_term(void);
-int i2c_write(UCHAR dev, UCHAR reg, UCHAR* data, int len);
-int i2c_read(UCHAR dev, UCHAR reg, UCHAR* data, int len);
-int i2c_read16(UCHAR dev, UINT16 reg, UCHAR* data, UINT16 len);
-int i2c_write16(UCHAR dev, UINT16 reg, UCHAR* data, UINT16 len);
+plt_handle i2c_init(int dev_id);
+plt_status i2c_term(plt_handle hnd);
+plt_status i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
+plt_status i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
 
 #endif
