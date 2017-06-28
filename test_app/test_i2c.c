@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <plt_i2c.h>
+#include <plt_lib.h>
 
 plt_handle i2c_hnd;
 void readdata(uint08 * Id){

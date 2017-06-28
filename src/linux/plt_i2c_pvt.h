@@ -43,7 +43,8 @@ IN THE SOFTWARE.
 #include <plt_i2c.h>
 typedef struct __tag_i2c_context
 {
-        int fd;
+    int fd;
+    pthread_mutex_t i2c_mutex;
 }i2c_context;
 
 

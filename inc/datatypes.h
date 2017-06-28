@@ -30,8 +30,6 @@ IN THE SOFTWARE.
 typedef unsigned long   uint32;
 typedef unsigned short  uint16;
 typedef unsigned char   uint08;
-
-
 typedef void*           plt_handle;
 typedef int             plt_status;
 
