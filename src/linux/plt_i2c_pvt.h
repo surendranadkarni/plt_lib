@@ -34,6 +34,7 @@ IN THE SOFTWARE.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <linux/i2c-dev.h>
 #include <linux/i2c.h>
 #include <sys/ioctl.h>
@@ -41,6 +42,7 @@ IN THE SOFTWARE.
 #include <unistd.h>
 #include <pthread.h>
 #include <plt_i2c.h>
+
 typedef struct __tag_i2c_context
 {
     int fd;

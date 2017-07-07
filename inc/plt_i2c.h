@@ -26,17 +26,18 @@ IN THE SOFTWARE.
 
 /*@{*/
 
-#ifndef ___PLT__I2C__PVT__H___
-#define ___PLT__I2C__PVT__H___
+#ifndef ___PLT__I2C__H___
+#define ___PLT__I2C__H___
 
 #include <datatypes.h>
 #include <plt_lib.h>
 
-plt_handle i2c_init(int dev_id);
-plt_status i2c_term(plt_handle hnd);
-plt_status i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
-plt_status i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
-plt_status i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
-plt_status i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
+plt_handle plt_i2c_new_device(int dev_id);
+plt_status plt_i2c_init(plt_handle hnd);
+plt_status plt_i2c_delete_device(plt_handle hnd);
+plt_status plt_i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status plt_i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status plt_i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
+plt_status plt_i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
 
 #endif

@@ -1,19 +1,21 @@
-#include <plt_i2c_pvt.h>
+#include "plt_i2c_pvt.h"
+#include "plt_cfg_pvt.h"
 
 #define MAP_I2C_CONTEXT_TO_PLT_HND(context) ((plt_handle) context)
 
 #define MAP_PLT_HND_TO_I2C_CONTEXT(hnd) ((i2c_context*) hnd)
 
 
-plt_handle i2c_init(int dev_id) 
+plt_handle plt_i2c_new_device(int dev_id) 
 {
-    char *i2c_dev = PLT_SPI_CFG_GET_DEVICE_FILE(dev_id);
+    char *i2c_dev = PLT_I2C_CFG_GET_DEVICE_FILE(dev_id);
     i2c_context *context = (i2c_context*) malloc(sizeof(i2c_context));
     pthread_mutex_lock(&context->i2c_mutex);
     context->fd = open(i2c_dev, O_RDWR);
-    if (adapter < 0) {
-        perror(i2c_dev);
-        exit(-1);
+    if (context->fd < 0)
+    {
+        free(context);
+        return NULL;
     }
 
     pthread_mutex_unlock(&context->i2c_mutex);
@@ -21,7 +23,12 @@ plt_handle i2c_init(int dev_id)
     return MAP_I2C_CONTEXT_TO_PLT_HND(context);
 }
 
-plt_status i2c_term(plt_handle hnd) 
+plt_status plt_i2c_init(plt_handle hnd)
+{
+    return 0;
+}
+
+plt_status plt_i2c_delete_device(plt_handle hnd)
 {
     i2c_context *context = MAP_PLT_HND_TO_I2C_CONTEXT(hnd);
     plt_assert(context != NULL);
@@ -31,7 +38,7 @@ plt_status i2c_term(plt_handle hnd)
     return 0;
 }
 
-plt_status i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len) 
+plt_status plt_i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len)
 {
     plt_status ret;
     if(len == 0)
@@ -47,16 +54,14 @@ plt_status i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int l
     pthread_mutex_lock(&context->i2c_mutex);
 
     ret = ioctl(context->fd, I2C_SLAVE, dev >> 1);
-    if(ret < 0) 
+    if(ret < 0)
     {
-        perror("Could not write I2C slave address");
         goto out;
     }
 
-    ret = write(adapter, buffer, len+1);
+    ret = write(context->fd, buffer, len+1);
     if(ret != len+1) 
     {
-        perror("Write data fail");
         goto out;
     }
 
@@ -68,7 +73,7 @@ out:
     return ret;
 }
 
-plt_status i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len) 
+plt_status plt_i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len)
 {
     plt_status ret;
     struct i2c_rdwr_ioctl_data i2c_data;
@@ -94,9 +99,8 @@ plt_status i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int le
     pthread_mutex_lock(&context->i2c_mutex);
 
     ret = ioctl(context->fd, I2C_RDWR, &i2c_data);
-    if (ret < 0) 
+    if (ret < 0)
     {
-        perror("read data fail");
         goto out;
     }
 
@@ -107,7 +111,7 @@ out:
     return ret;
 }
 
-plt_status i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len) 
+plt_status plt_i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len)
 {
     plt_status ret;
     struct i2c_rdwr_ioctl_data i2c_data;
@@ -134,9 +138,8 @@ plt_status i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint
     pthread_mutex_lock(&context->i2c_mutex);
 
     ret = ioctl(context->fd, I2C_RDWR, &i2c_data);
-    if (ret < 0) 
+    if (ret < 0)
     {
-        perror("read data fail");
         goto out;
     }
 
@@ -147,11 +150,11 @@ out:
     return ret;
 }
 
-plt_status i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len) 
+plt_status plt_i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len)
 {
     plt_status ret;
     if(len == 0)
-        return;
+        return -1;
 
     i2c_context *context = MAP_PLT_HND_TO_I2C_CONTEXT(hnd);
     plt_assert(context != NULL);
@@ -164,16 +167,14 @@ plt_status i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uin
     pthread_mutex_lock(&context->i2c_mutex);
 
     ret = ioctl(context->fd, I2C_SLAVE, dev >> 1);
-    if(ret < 0) 
+    if(ret < 0)
     {
-        perror("Could not write I2C slave address");
         goto out;
     }
 
-    ret = write(adapter, buffer, len+2);
-    if(ret != len+2) 
+    ret = write(context->fd, buffer, len+2);
+    if(ret != len+2)
     {
-        perror("Write data fail");
         goto out;
     }
 

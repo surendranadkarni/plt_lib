@@ -12,7 +12,7 @@ void readdata(uint08 * Id){
     int len = 8;
     addr =  0x98;
     
-    i2c_read(i2c_hnd, addr, reg, rx_buf, len);
+    plt_i2c_read(i2c_hnd, addr, reg, rx_buf, len);
     for(i = 0; i < 8; i++)
     {
         printf("%x\n", rx_buf[i]);
@@ -22,13 +22,13 @@ void readdata(uint08 * Id){
 int main()
 {
     
-    i2c_hnd = i2c_init(0);
+    i2c_hnd = plt_i2c_new_device(0);
 
     printf("HDN %p\n", i2c_hnd);    
     
     
     readdata(NULL);
     
-    i2c_term(i2c_hnd);
+    plt_i2c_delete_device(i2c_hnd);
     return 0;
 }
