@@ -5,9 +5,9 @@ CFLAGS=-I./../inc/ -I../cfg/ -Wall
 %.o: %.c 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-test: test_spi.o 
+test: test_spi.0 test_i2c.o
 	mkdir -p ../lib
-	cp test_spi.o ../lib/
+	cp test_spi.o test_i2c.o  ../lib/
 
 clean:
 	rm -f  *.o

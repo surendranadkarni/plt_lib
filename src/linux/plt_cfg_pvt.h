@@ -30,7 +30,7 @@ IN THE SOFTWARE.
 #define ___PLT__CFG__PVT__H___
 
 #define PLT_SPI_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/spidev0.0":NULL)
-
+#define PLT_I2C_CFG_GET_DEVICE_FILE(dev_id) ((dev_id==0)?"/dev/i2c-0":NULL)
 
 #endif
  

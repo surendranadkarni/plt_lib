@@ -1,7 +1,7 @@
 /*
-    plt_spi_pvt.h
+    plt_i2c_pvt.h
     platform library spi private header
-    Copyright (C) <2013> Surendra Nadkarni <suren.nadkarni@gmail.com>
+    Copyright (C) <2017> Saurabh Namjoshi <saurabh.namjoshi@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 
@@ -26,34 +26,18 @@ IN THE SOFTWARE.
 
 /*@{*/
 
-#ifndef ___PLT__SPI__PVT__H___
-#define ___PLT__SPI__PVT__H___
+#ifndef ___PLT__I2C__H___
+#define ___PLT__I2C__H___
 
-#include <plt_spi.h>
-#include <stdint.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <getopt.h>
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <linux/types.h>
-#include <linux/spi/spidev.h>
+#include <datatypes.h>
+#include <plt_lib.h>
 
-typedef struct __tag_spi_context
-{
-    int fd;
-    plt_spi_config cfg;
-}spi_context;
+plt_handle plt_i2c_new_device(int dev_id);
+plt_status plt_i2c_init(plt_handle hnd);
+plt_status plt_i2c_delete_device(plt_handle hnd);
+plt_status plt_i2c_write(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status plt_i2c_read(plt_handle hnd, uint08 dev, uint08 reg, uint08* data, int len);
+plt_status plt_i2c_read16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
+plt_status plt_i2c_write16(plt_handle hnd, uint08 dev, uint16 reg, uint08* data, uint16 len);
 
 #endif
- 
-/*@}*/
-
-//  Local Variables:
-//    mode: c++
-//    tab-width: 4
-//    c-basic-offset: 4
-//    indent-tabs-mode: nil
-//  End:
